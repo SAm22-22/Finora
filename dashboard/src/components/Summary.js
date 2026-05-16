@@ -10,7 +10,13 @@ const Summary = () => {
   useEffect(() => {
     const fetchHoldings = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/allHoldings");
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get("http://localhost:8080/allHoldings", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         setHoldings(res.data);
       } catch (err) {
