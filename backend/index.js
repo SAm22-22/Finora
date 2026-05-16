@@ -9,13 +9,25 @@ const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 
+const authRoutes = require("./routes/authRoutes");
+
 const PORT = process.env.PORT || 8080;
 const uri = process.env.MONGO_URL;
-
+  
 const app = express();
+
+/* =========================
+   MIDDLEWARE
+========================= */
 
 app.use(cors());
 app.use(bodyParser.json());
+
+/* =========================
+   AUTH ROUTES
+========================= */
+
+app.use("/api/auth", authRoutes);
 
 /* =========================
    GET HOLDINGS
@@ -170,24 +182,33 @@ app.post("/newOrder", async (req, res) => {
       }
     }
 
-    res.send("Order processed successfully!");
+    res.status(200).json({
+      success: true,
+      message: "Order processed successfully!",
+    });
   } catch (err) {
     console.log(err);
-    res.status(500).send("Server error");
+
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
   }
 });
 
 /* =========================
-   START SERVER
+   CONNECT DB & START SERVER
 ========================= */
 
-app.listen(PORT, async () => {
-  console.log(`Server running on port ${PORT}`);
-
-  try {
-    await mongoose.connect(uri);
+mongoose
+  .connect(uri)
+  .then(() => {
     console.log("MongoDB connected");
-  } catch (err) {
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
     console.log("MongoDB connection error:", err);
-  }
-});
+  });
