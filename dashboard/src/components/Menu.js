@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Menu.css";
+
 const Menu = () => {
   const [selectedMenu, setselectedMenu] = useState(0);
   const [isProfileDropdownOpen, setisProfileDropdownOpen] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleMenuClick = (index) => {
     setselectedMenu(index);
@@ -16,15 +15,17 @@ const Menu = () => {
   };
 
   const handleLogout = () => {
-    // localStorage clear karo
+    localStorage.removeItem("user");
+    // REMOVE TOKEN
     localStorage.removeItem("token");
 
-    // login page pe bhejo
-    navigate("/login");
+    // REDIRECT TO LOGIN PAGE
+    window.location.href = "http://localhost:3000/login";
   };
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="menu-container">
@@ -35,7 +36,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to={"/"}
+              to=""
               onClick={() => handleMenuClick(0)}
             >
               <p className={selectedMenu === 0 ? activeMenuClass : menuClass}>
@@ -47,7 +48,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to={"/orders"}
+              to="orders"
               onClick={() => handleMenuClick(1)}
             >
               <p className={selectedMenu === 1 ? activeMenuClass : menuClass}>
@@ -59,7 +60,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to={"/holdings"}
+              to="holdings"
               onClick={() => handleMenuClick(2)}
             >
               <p className={selectedMenu === 2 ? activeMenuClass : menuClass}>
@@ -71,7 +72,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to={"/positions"}
+              to="positions"
               onClick={() => handleMenuClick(3)}
             >
               <p className={selectedMenu === 3 ? activeMenuClass : menuClass}>
@@ -83,7 +84,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to={"/funds"}
+              to="funds"
               onClick={() => handleMenuClick(4)}
             >
               <p className={selectedMenu === 4 ? activeMenuClass : menuClass}>
@@ -95,7 +96,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to={"/apps"}
+              to="apps"
               onClick={() => handleMenuClick(5)}
             >
               <p className={selectedMenu === 5 ? activeMenuClass : menuClass}>
@@ -110,8 +111,10 @@ const Menu = () => {
         {/* PROFILE SECTION */}
         <div className="profile-container">
           <div className="profile" onClick={handleProfileClick}>
-            <div className="avatar">ZU</div>
-            <p className="username">USERID</p>
+            <div className="avatar">
+              {user?.username ? user.username.slice(0, 2).toUpperCase() : "ZU"}
+            </div>
+            <p className="username">{user?.username}</p>
           </div>
 
           {isProfileDropdownOpen && (
@@ -124,9 +127,9 @@ const Menu = () => {
                 Settings
               </Link>
 
-              <p className="dropdown-item logout" onClick={handleLogout}>
+              <button className="logout-btn" onClick={handleLogout}>
                 Logout
-              </p>
+              </button>
             </div>
           )}
         </div>

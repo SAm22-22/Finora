@@ -10,9 +10,7 @@ const Summary = () => {
   useEffect(() => {
     const fetchHoldings = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:8080/allHoldings"
-        );
+        const res = await axios.get("http://localhost:8080/allHoldings");
 
         setHoldings(res.data);
       } catch (err) {
@@ -23,28 +21,27 @@ const Summary = () => {
     fetchHoldings();
   }, [refreshFlag]);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   // calculations
   const investment = holdings.reduce(
     (acc, stock) => acc + stock.avg * stock.qty,
-    0
+    0,
   );
 
   const currentValue = holdings.reduce(
     (acc, stock) => acc + stock.price * stock.qty,
-    0
+    0,
   );
 
   const pnl = currentValue - investment;
 
-  const pnlPercent =
-    investment > 0
-      ? ((pnl / investment) * 100).toFixed(2)
-      : 0;
+  const pnlPercent = investment > 0 ? ((pnl / investment) * 100).toFixed(2) : 0;
 
   return (
     <>
       <div className="username">
-        <h6>Hi, User!</h6>
+        <h6>Hi, {user?.username || "User"}!</h6>
         <hr className="divider" />
       </div>
 
@@ -67,8 +64,7 @@ const Summary = () => {
             </p>
 
             <p>
-              Opening balance{" "}
-              <span>{investment.toFixed(2)}</span>
+              Opening balance <span>{investment.toFixed(2)}</span>
             </p>
           </div>
         </div>
@@ -99,13 +95,11 @@ const Summary = () => {
 
           <div className="second">
             <p>
-              Current Value{" "}
-              <span>{currentValue.toFixed(2)}</span>
+              Current Value <span>{currentValue.toFixed(2)}</span>
             </p>
 
             <p>
-              Investment{" "}
-              <span>{investment.toFixed(2)}</span>
+              Investment <span>{investment.toFixed(2)}</span>
             </p>
           </div>
         </div>
