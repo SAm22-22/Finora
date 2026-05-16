@@ -11,9 +11,11 @@ const { OrdersModel } = require("./model/OrdersModel");
 
 const authRoutes = require("./routes/authRoutes");
 
+const authMiddleware = require("./middleware/authMiddleware");
+
 const PORT = process.env.PORT || 8080;
 const uri = process.env.MONGO_URL;
-  
+
 const app = express();
 
 /* =========================
@@ -21,6 +23,7 @@ const app = express();
 ========================= */
 
 app.use(cors());
+
 app.use(bodyParser.json());
 
 /* =========================
@@ -33,12 +36,16 @@ app.use("/api/auth", authRoutes);
    GET HOLDINGS
 ========================= */
 
-app.get("/allHoldings", async (req, res) => {
+app.get("/allHoldings", authMiddleware, async (req, res) => {
   try {
-    const allHoldings = await HoldingsModel.find({});
+    const allHoldings = await HoldingsModel.find({
+      userId: req.user.id,
+    });
+
     res.json(allHoldings);
   } catch (err) {
     console.log(err);
+
     res.status(500).send("Error fetching holdings");
   }
 });
@@ -47,12 +54,16 @@ app.get("/allHoldings", async (req, res) => {
    GET POSITIONS
 ========================= */
 
-app.get("/allPositions", async (req, res) => {
+app.get("/allPositions", authMiddleware, async (req, res) => {
   try {
-    const allPositions = await PositionsModel.find({});
+    const allPositions = await PositionsModel.find({
+      userId: req.user.id,
+    });
+
     res.json(allPositions);
   } catch (err) {
     console.log(err);
+
     res.status(500).send("Error fetching positions");
   }
 });
@@ -61,12 +72,16 @@ app.get("/allPositions", async (req, res) => {
    GET ORDERS
 ========================= */
 
-app.get("/allOrders", async (req, res) => {
+app.get("/allOrders", authMiddleware, async (req, res) => {
   try {
-    const allOrders = await OrdersModel.find({});
+    const allOrders = await OrdersModel.find({
+      userId: req.user.id,
+    });
+
     res.json(allOrders);
   } catch (err) {
     console.log(err);
+
     res.status(500).send("Error fetching orders");
   }
 });
@@ -75,15 +90,17 @@ app.get("/allOrders", async (req, res) => {
    NEW ORDER
 ========================= */
 
-app.post("/newOrder", async (req, res) => {
+app.post("/newOrder", authMiddleware, async (req, res) => {
   try {
     const { name, qty, price, mode } = req.body;
 
     /* =========================
-       SAVE ORDER
-    ========================= */
+         SAVE ORDER
+      ========================= */
 
     const newOrder = new OrdersModel({
+      userId: req.user.id,
+
       name,
       qty,
       price,
@@ -93,26 +110,32 @@ app.post("/newOrder", async (req, res) => {
     await newOrder.save();
 
     /* =========================
-       HOLDINGS LOGIC
-    ========================= */
+         HOLDINGS LOGIC
+      ========================= */
 
-    let holding = await HoldingsModel.findOne({ name });
+    let holding = await HoldingsModel.findOne({
+      userId: req.user.id,
+      name,
+    });
 
     // BUY
     if (mode === "BUY") {
       if (holding) {
         const totalQty = holding.qty + qty;
 
-        const totalCost =
-          holding.avg * holding.qty + price * qty;
+        const totalCost = holding.avg * holding.qty + price * qty;
 
         holding.qty = totalQty;
+
         holding.avg = totalCost / totalQty;
+
         holding.price = price;
 
         await holding.save();
       } else {
         const newHolding = new HoldingsModel({
+          userId: req.user.id,
+
           name,
           qty,
           avg: price,
@@ -131,36 +154,53 @@ app.post("/newOrder", async (req, res) => {
         holding.qty -= qty;
 
         if (holding.qty <= 0) {
-          await HoldingsModel.deleteOne({ name });
+          await HoldingsModel.deleteOne({
+            userId: req.user.id,
+            name,
+          });
         } else {
           holding.price = price;
+
           await holding.save();
         }
       }
     }
 
     /* =========================
-       POSITIONS LOGIC
-    ========================= */
+         POSITIONS LOGIC
+      ========================= */
 
-    let position = await PositionsModel.findOne({ name });
+    let position = await PositionsModel.findOne({
+      userId: req.user.id,
+      name,
+    });
 
     // BUY POSITION
     if (mode === "BUY") {
       if (position) {
         position.qty += qty;
+
         position.price = price;
 
         await position.save();
       } else {
         const newPosition = new PositionsModel({
+          userId: req.user.id,
+
           product: "CNC",
+
           name,
+
           qty,
+
           avg: price,
+
           price,
+
           net: "0%",
+
           day: "0%",
+
           isLoss: false,
         });
 
@@ -174,9 +214,13 @@ app.post("/newOrder", async (req, res) => {
         position.qty -= qty;
 
         if (position.qty <= 0) {
-          await PositionsModel.deleteOne({ name });
+          await PositionsModel.deleteOne({
+            userId: req.user.id,
+            name,
+          });
         } else {
           position.price = price;
+
           await position.save();
         }
       }
@@ -184,6 +228,7 @@ app.post("/newOrder", async (req, res) => {
 
     res.status(200).json({
       success: true,
+
       message: "Order processed successfully!",
     });
   } catch (err) {
@@ -191,13 +236,14 @@ app.post("/newOrder", async (req, res) => {
 
     res.status(500).json({
       success: false,
+
       message: "Server error",
     });
   }
 });
 
 /* =========================
-   CONNECT DB & START SERVER
+   CONNECT DB
 ========================= */
 
 mongoose
