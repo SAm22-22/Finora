@@ -1,0 +1,73 @@
+.auth-container {
+    width: 350px;
+    margin: 100px auto;
+    padding: 30px;
+    background: #0f172a;
+    border-radius: 14px;
+    color: white;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    transition: 0.3s ease;
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 22px;
+    font-weight: 600;
+}
+
+/* 👇 Inputs improved */
+.auth-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border: 1px solid #1e293b;
+    background: #020617;
+    color: white;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+/* 🔥 Focus effect */
+.auth-container input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+}
+
+/* 👇 Button improved */
+.auth-container button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+/* 🔥 Hover effect */
+.auth-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+}
+
+.auth-container button:active {
+    transform: scale(0.98);
+}
+
+/* Error */
+.error {
+    color: #ef4444;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.success {
+    color: #22c55e;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
