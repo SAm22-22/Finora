@@ -1,0 +1,90 @@
+.auth-container {
+    width: 100%;
+    max-width: 380px;
+    margin: 80px auto;
+    padding: 30px;
+    border-radius: 16px;
+    background: #0f172a;
+    color: white;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    transition: 0.3s ease;
+}
+
+/* Heading */
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* Inputs */
+.auth-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border: 1px solid #1e293b;
+    background: #020617;
+    color: white;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+/* Focus effect 🔥 */
+.auth-container input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+}
+
+/* Button */
+.auth-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+/* Hover effect */
+.auth-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* Disabled */
+.auth-container button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Messages */
+.error {
+    color: #ef4444;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.success {
+    color: #22c55e;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.switch-text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.switch-text span {
+    color: #2563eb;
+    cursor: pointer;
+    margin-left: 5px;
+}

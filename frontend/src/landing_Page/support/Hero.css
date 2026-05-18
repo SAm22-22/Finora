@@ -1,0 +1,117 @@
+/* Background */
+.support-hero {
+  background-color: #3f7ccf;
+  color: white;
+  padding: 50px 80px;
+}
+
+/* Top */
+.support-wrapper {
+  margin-bottom: 40px;
+}
+
+/* Layout */
+.hero-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+/* Left */
+.hero-left {  
+  width: 58%;
+}
+
+.hero-left h1 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+/* Input */
+.hero-left input {
+  width: 100%;
+  height: 50px;
+  border-radius: 6px;
+  border: none;
+  padding: 0 15px;
+  margin-bottom: 20px;
+}
+
+/* Links */
+.quick-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.quick-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.quick-links a:hover {
+  text-decoration: underline;
+}
+
+/* Right */
+.hero-right {
+  width: 30%;
+}
+
+/* Track ticket */
+.track-ticket {
+  /* text-align: right; */
+ 
+  margin-bottom: 20px;
+}
+
+.track-ticket a {
+  color: white;
+   font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.track-ticket a:hover {
+  text-decoration: underline;
+}
+
+/* Featured */
+.hero-right h4 {
+  margin-bottom: 10px;
+}
+
+.hero-right ol {
+  padding-left: 18px;
+}
+
+.hero-right a {
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.hero-right a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .support-hero {
+    padding: 20px;
+  }
+
+  .hero-container {
+    flex-direction: column;
+  }
+
+  .hero-left,
+  .hero-right {
+    width: 100%;
+  }
+
+  .track-ticket {
+    text-align: left;
+  }
+}
