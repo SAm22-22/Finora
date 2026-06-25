@@ -33,8 +33,8 @@ function Auth() {
 
     try {
       const url = isLogin
-        ? "http://localhost:8080/api/auth/login"
-        : "http://localhost:8080/api/auth/signup";
+        ? `${process.env.REACT_APP_API_URL}/api/auth/login`
+        : `${process.env.REACT_APP_API_URL}/api/auth/signup`;
 
       const res = await axios.post(url, formData);
       console.log(res.data);
@@ -43,7 +43,7 @@ function Auth() {
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       // REDIRECT TO DASHBOARD
-      window.location.href = `http://localhost:3001?token=${res.data.token}&username=${res.data.user.username}`;
+      window.location.href = `https://finora-dashboard.vercel.app?token=${res.data.token}&username=${res.data.user.username}`;
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     } finally {

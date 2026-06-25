@@ -28,7 +28,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/auth/login",
+        `${process.env.REACT_APP_API_URL}/api/auth/login`,
         formData,
       );
 
@@ -38,8 +38,7 @@ function Login() {
 
       // ✅ redirect to dashboard app
       alert("LOGIN SUCCESS");
-      window.location.href =
-  `http://localhost:3001?token=${res.data.token}&username=${res.data.user.username}`;
+      window.location.href = `${process.env.REACT_APP_DASHBOARD_URL}?token=${res.data.token}&username=${res.data.user.username}`;
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     } finally {

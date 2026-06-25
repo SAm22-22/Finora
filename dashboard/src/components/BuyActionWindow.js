@@ -16,7 +16,7 @@ const BuyActionWindow = ({ uid }) => {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:8080/newOrder",
+         `${process.env.REACT_APP_API_URL}/newOrder`,
         {
           name: uid,
           qty: Number(stockQuantity),
