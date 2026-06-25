@@ -6,8 +6,13 @@ const Menu = () => {
   const [selectedMenu, setselectedMenu] = useState(0);
   const [isProfileDropdownOpen, setisProfileDropdownOpen] = useState(false);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleMenuClick = (index) => {
     setselectedMenu(index);
+
+    // MOBILE MENU CLOSE AFTER CLICK
+    setMenuOpen(false);
   };
 
   const handleProfileClick = () => {
@@ -16,23 +21,30 @@ const Menu = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    // REMOVE TOKEN
     localStorage.removeItem("token");
 
-    // REDIRECT TO LOGIN PAGE
     window.location.href = "http://localhost:3000/login";
   };
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="menu-container">
-      <img src="logo.png" alt="Logo" style={{ width: "50px" }} />
+      {/* HAMBURGER */}
+      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+        ☰
+      </div>
 
-      <div className="menus">
+      {/* LOGO */}
+      <img src="logo.png" alt="Logo" className="logo" />
+
+      {/* MENUS */}
+      <div className={`menus ${menuOpen ? "active" : ""}`}>
         <ul>
+          {/* DASHBOARD */}
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -45,6 +57,7 @@ const Menu = () => {
             </Link>
           </li>
 
+          {/* ORDERS */}
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -57,6 +70,7 @@ const Menu = () => {
             </Link>
           </li>
 
+          {/* HOLDINGS */}
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -69,6 +83,7 @@ const Menu = () => {
             </Link>
           </li>
 
+          {/* POSITIONS */}
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -81,6 +96,7 @@ const Menu = () => {
             </Link>
           </li>
 
+          {/* FUNDS */}
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -93,6 +109,7 @@ const Menu = () => {
             </Link>
           </li>
 
+          {/* APPS */}
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -108,15 +125,17 @@ const Menu = () => {
 
         <hr />
 
-        {/* PROFILE SECTION */}
+        {/* PROFILE */}
         <div className="profile-container">
           <div className="profile" onClick={handleProfileClick}>
             <div className="avatar">
               {user?.username ? user.username.slice(0, 2).toUpperCase() : "ZU"}
             </div>
+
             <p className="username">{user?.username}</p>
           </div>
 
+          {/* DROPDOWN */}
           {isProfileDropdownOpen && (
             <div className="profile-dropdown">
               <Link to="/profile" className="dropdown-item">
