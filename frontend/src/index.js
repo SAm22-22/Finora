@@ -6,7 +6,7 @@ import {
   Routes,
   Route,
   useLocation,
-  Navigate,
+  // Navigate,
 } from "react-router-dom";
 
 import HomePage from "./landing_Page/home/HomePage";
@@ -25,15 +25,15 @@ import Login from "./landing_Page/login/Login";
 // import Dashboard from "./dashboard/src/components/Dashboard";
 
 // PROTECTED ROUTE
-const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem("token");
+// const ProtectedRoute = ({ children }) => {
+//   const token = localStorage.getItem("token");
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
+//   if (!token) {
+//     return <Navigate to="/login" replace />;
+//   }
 
-  return children;
-};
+//   return children;
+// };
 
 const AppLayout = () => {
   const location = useLocation();
