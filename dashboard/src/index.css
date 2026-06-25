@@ -103,7 +103,7 @@ code {
   justify-content: space-between;
 }
 
-.table .data > * {
+.table .data>* {
   margin-bottom: 5%;
 }
 
@@ -408,11 +408,11 @@ hr {
 }
 
 .order-table tr td:first-child p {
-    background: rgb(255, 197, 197);
-    color: rgb(233, 120, 120);
-    width: 50%;
-    text-align: center;
-    border-radius: 2px;
+  background: rgb(255, 197, 197);
+  color: rgb(233, 120, 120);
+  width: 50%;
+  text-align: center;
+  border-radius: 2px;
 }
 
 .order-table tr td:last-child {
@@ -602,8 +602,8 @@ hr {
   justify-content: space-evenly;
 }
 
-.nifty > *,
-.sensex > * {
+.nifty>*,
+.sensex>* {
   margin-right: 8px;
 }
 
@@ -693,7 +693,7 @@ hr {
   align-items: center;
 }
 
-.item-info > * {
+.item-info>* {
   margin-right: 8px;
 }
 
@@ -812,7 +812,7 @@ hr {
   background-color: #f3f3f3;
 }
 
-.list li:hover > .actions {
+.list li:hover>.actions {
   display: flex;
   cursor: move;
 }
@@ -842,5 +842,211 @@ hr {
   background-color: rgb(212, 212, 212);
 }
 
+/* ============================= */
+/* RESPONSIVE DESIGN */
+/* ============================= */
 
+@media screen and (max-width: 1200px) {
 
+  .watchlist-container,
+  .indices-container,
+  .watchlist-number {
+    width: 35%;
+    flex-basis: 35%;
+  }
+
+  .content,
+  .menu-container {
+    flex-basis: 65%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+
+  .dashboard-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .watchlist-container,
+  .indices-container,
+  .watchlist-number,
+  .content,
+  .menu-container {
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  .watchlist-number {
+    position: relative;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .col {
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  .data {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .topbar-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .indices-container {
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    justify-content: space-between;
+  }
+
+  .menu-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .menus {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .profile {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .content {
+    padding: 15px;
+  }
+
+  .table {
+    padding: 20px;
+  }
+
+  .funds {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .btn {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }
+
+  .order-table {
+    overflow-x: auto;
+  }
+
+  .order-table table {
+    min-width: 700px;
+  }
+
+  .menus li {
+    margin-right: 15px;
+  }
+
+  .col h5 {
+    font-size: 1.4rem;
+  }
+
+  .data .first h3 {
+    font-size: 2rem;
+  }
+
+  .watchlist-number {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+
+  .topbar-container {
+    padding: 10px;
+  }
+
+  .indices-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .nifty,
+  .sensex {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .search {
+    padding: 12px;
+    font-size: 0.8rem;
+  }
+
+  .counts {
+    font-size: 0.7rem;
+  }
+
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .item-info {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .actions {
+    position: static;
+    display: flex;
+    margin-top: 10px;
+    justify-content: flex-start;
+  }
+
+  .actions span button {
+    width: 35px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+
+  .profile .username {
+    display: none;
+  }
+
+  .title {
+    font-size: 1.1rem;
+  }
+
+  .section span p {
+    font-size: 1rem;
+  }
+
+  .col h5 {
+    font-size: 1.2rem;
+  }
+
+  .data .first h3 {
+    font-size: 1.5rem;
+  }
+}
