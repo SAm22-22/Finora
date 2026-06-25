@@ -23,7 +23,7 @@ const Holdings = () => {
           localStorage.getItem("token");
 
         const res = await axios.get(
-          "http://localhost:8080/allHoldings",
+           `${process.env.REACT_APP_API_URL}/allHoldings`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

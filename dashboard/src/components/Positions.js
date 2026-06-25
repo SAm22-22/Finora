@@ -11,7 +11,7 @@ const Positions = () => {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:8080/allPositions",
+         `${process.env.REACT_APP_API_URL}/allPositions`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

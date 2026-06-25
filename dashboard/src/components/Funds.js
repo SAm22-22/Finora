@@ -9,7 +9,7 @@ const Funds = () => {
     const fetchFunds = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/funds"
+           `${process.env.REACT_APP_API_URL}/funds`,
         );
 
         setFunds(res.data);
