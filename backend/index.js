@@ -14,7 +14,7 @@ const authRoutes = require("./routes/authRoutes");
 const authMiddleware = require("./middleware/authMiddleware");
 
 const PORT = process.env.PORT || 8080;
-const uri = process.env.MONGO_URL;
+const url = process.env.MONGO_URL;
 
 const app = express();
 
@@ -247,7 +247,7 @@ app.post("/newOrder", authMiddleware, async (req, res) => {
 ========================= */
 
 mongoose
-  .connect(uri)
+  .connect(url)
   .then(() => {
     console.log("MongoDB connected");
 
