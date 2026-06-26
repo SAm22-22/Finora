@@ -43,7 +43,7 @@ function Auth() {
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       // REDIRECT TO DASHBOARD
-      window.location.href = `https://finora-dashboard.vercel.app?token=${res.data.token}&username=${res.data.user.username}`;
+      window.location.href = `${process.env.REACT_APP_DASHBOARD_URL}?token=${res.data.token}&username=${res.data.user.username}`;
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     } finally {
