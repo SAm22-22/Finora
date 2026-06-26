@@ -38,7 +38,8 @@ function Login() {
 
       // ✅ redirect to dashboard app
       alert("LOGIN SUCCESS");
-      window.location.href = `${process.env.REACT_APP_DASHBOARD_URL}?token=${res.data.token}&username=${res.data.user.username}`;
+     window.location.href =
+`https://finora-eight-psi.vercel.app?token=${res.data.token}&username=${res.data.user.username}`;
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     } finally {
