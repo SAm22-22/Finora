@@ -34,11 +34,7 @@ const Menu = () => {
 
   return (
     <div className="menu-container">
-      {/* HAMBURGER */}
-      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-        ☰
-      </div>
-
+  
       {/* LOGO */}
       <img src="logo.png" alt="Logo" className="logo" />
 

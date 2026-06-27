@@ -1,366 +1,90 @@
 .profile-container {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 
 .profile {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 8px 12px;
   cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.profile:hover {
+  background: #f5f5f5;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #387ed1;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.username {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .profile-dropdown {
   position: absolute;
-  top: 45px;
+  top: calc(100% + 8px);
   right: 0;
 
-  width: 160px;
-  background-color: white;
+  width: 180px;
+  background: #fff;
 
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 1px solid #ececec;
+  border-radius: 10px;
 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
 
   overflow: hidden;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .dropdown-item {
-  padding: 12px 15px;
-  color: black;
+  display: block;
+  width: 100%;
+
+  padding: 12px 16px;
+
+  color: #333;
   text-decoration: none;
-  cursor: pointer;
-  transition: 0.2s;
+  background: white;
+
+  border: none;
+  text-align: left;
 }
 
 .dropdown-item:hover {
-  background-color: #f5f5f5;
-}
-
-.logout {
-  color: red;
-}
-
-.profile-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 10px;
-  transition: 0.3s ease;
-}
-
-.profile:hover {
-  background-color: #f3f3f3;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #387ed1;
-  color: white;
-  display: flex;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 10px;
-  transition: 0.3s ease;
-}
-
-.profile:hover {
-  background-color: #f3f3f3;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.username {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.profile-dropdown {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  width: 180px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 1000;
-}
-
-.dropdown-item {
-  text-decoration: none;
-  color: #333;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.profile-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 10px;
-  transition: 0.3s ease;
-}
-
-.profile:hover {
-  background-color: #f3f3f3;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #387ed1;
-  color: white;
-  display: flex;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 10px;
-  transition: 0.3s ease;
-}
-
-.profile:hover {
-  background-color: #f3f3f3;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.username {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.profile-dropdown {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  width: 180px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 1000;
-}
-
-.dropdown-item {
-  text-decoration: none;
-  color: #333;
-  padding: 10px;
-  border-radius: 8px;
+  background: #f7f7f7;
 }
 
 .logout-btn {
   width: 100%;
+  padding: 12px 16px;
+
   border: none;
-  outline: none;
-  background-color: #ff4d4f;
+  border-top: 1px solid #eee;
+
+  background: #ff4d4f;
   color: white;
 
-  padding: 10px 14px;
-  border-radius: 8px;
-
-  font-size: 14px;
-  font-weight: 600;
-
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-weight: 600;
 }
 
 .logout-btn:hover {
-  background-color: #e63946;
-  transform: translateY(-1px);
-}
-
-.logout-btn:active {
-  transform: scale(0.98);
-}
-
-.logout {
-  color: red;
-}
-
-/* HAMBURGER */
-
-.hamburger {
-  display: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: #444;
-}
-
-/* MOBILE */
-
-@media screen and (max-width: 768px) {
-
-  .menu-container {
-    position: relative;
-    padding: 15px;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  .menus {
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background: white;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-    display: none;
-    z-index: 100;
-  }
-
-  .menus.active {
-    display: flex;
-  }
-
-  .menus ul {
-    width: 100%;
-    padding: 0;
-  }
-
-  .menus li {
-    display: block;
-    margin: 15px 0;
-  }
-
-  .profile {
-    margin-top: 10px;
-  }
-
-  hr {
-    display: none;
-  }
-}
-
-/* MOBILE MENU FIX */
-
-@media screen and (max-width: 768px) {
-
-  .menu-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    position: relative;
-    padding: 15px 20px;
-  }
-
-  .hamburger {
-    display: block;
-    font-size: 1.8rem;
-    cursor: pointer;
-    z-index: 1001;
-  }
-
-  .logo {
-    width: 45px;
-    height: auto;
-  }
-
-  .menus {
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background: white;
-
-    flex-direction: column;
-    align-items: flex-start;
-
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-    display: none;
-    z-index: 1000;
-  }
-
-  .menus.active {
-    display: flex;
-  }
-
-  .menus ul {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-
-  .menus li {
-    display: block;
-    margin: 15px 0;
-  }
-
-  hr {
-    display: none;
-  }
-
-  .profile-container {
-    width: 100%;
-    margin-top: 15px;
-  }
+  background: #e63946;
 }
