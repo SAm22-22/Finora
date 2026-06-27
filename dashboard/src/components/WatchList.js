@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-
 import { Tooltip, Grow } from "@mui/material";
 
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
@@ -13,17 +12,13 @@ import { DoughnutChart } from "./DoughnoutChart";
 
 const labels = watchlist.map((stock) => stock.name);
 
-const WatchList = () => {
-  // GRAPH DATA
+const WatchList = ({ closeDrawer }) => {
   const graphData = {
     labels,
-
     datasets: [
       {
         label: "Stock Price",
-
         data: watchlist.map((stock) => stock.price),
-
         backgroundColor: [
           "rgba(255, 99, 132, 0.6)",
           "rgba(54, 162, 235, 0.6)",
@@ -32,7 +27,6 @@ const WatchList = () => {
           "rgba(153, 102, 255, 0.6)",
           "rgba(255, 159, 64, 0.6)",
         ],
-
         borderWidth: 1,
       },
     ],
@@ -40,12 +34,9 @@ const WatchList = () => {
 
   return (
     <div className="watchlist-container">
-      {/* SEARCH */}
       <div className="search-container">
         <input
           type="text"
-          name="search"
-          id="search"
           placeholder="Search eg: infy, bse, nifty fut weekly"
           className="search"
         />
@@ -55,19 +46,16 @@ const WatchList = () => {
         </span>
       </div>
 
-      {/* WATCHLIST */}
       <ul className="list">
-        {watchlist.map((stock, index) => {
-          return (
-            <WatchListItem
-              stock={stock}
-              key={`${stock.name}-${index}`}
-            />
-          );
-        })}
+        {watchlist.map((stock, index) => (
+          <WatchListItem
+            key={`${stock.name}-${index}`}
+            stock={stock}
+            closeDrawer={closeDrawer}
+          />
+        ))}
       </ul>
 
-      {/* GRAPH */}
       <DoughnutChart data={graphData} />
     </div>
   );
@@ -75,22 +63,26 @@ const WatchList = () => {
 
 export default WatchList;
 
-// WATCHLIST ITEM
-const WatchListItem = ({ stock }) => {
+// ===================================================
+
+const WatchListItem = ({ stock, closeDrawer }) => {
   const [showWatchlistAction, setShowWatchlistAction] = useState(false);
 
-  const handleMouseEnter = () => {
-    setShowWatchlistAction(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowWatchlistAction(false);
-  };
+  const isMobile = window.innerWidth <= 768;
 
   return (
     <li
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => {
+        if (!isMobile) setShowWatchlistAction(true);
+      }}
+      onMouseLeave={() => {
+        if (!isMobile) setShowWatchlistAction(false);
+      }}
+      onClick={() => {
+        if (isMobile) {
+          setShowWatchlistAction((prev) => !prev);
+        }
+      }}
     >
       <div className="item">
         <p className={stock.isDown ? "down" : "up"}>
@@ -115,21 +107,24 @@ const WatchListItem = ({ stock }) => {
       </div>
 
       {showWatchlistAction && (
-        <WatchlistAction uid={stock.name} />
+        <WatchlistAction
+          uid={stock.name}
+          closeDrawer={closeDrawer}
+        />
       )}
     </li>
   );
 };
 
-// ACTIONS
-const WatchlistAction = ({ uid }) => {
+// ===================================================
+
+const WatchlistAction = ({ uid, closeDrawer }) => {
   const { openBuyWindow, openSellWindow } =
     useContext(GeneralContext);
 
   return (
     <span className="actions">
       <span>
-        {/* BUY */}
         <Tooltip
           title="Buy (B)"
           placement="top"
@@ -138,13 +133,22 @@ const WatchlistAction = ({ uid }) => {
         >
           <button
             className="buy"
-            onClick={() => openBuyWindow(uid)}
+            onClick={(e) => {
+              e.stopPropagation();
+
+              openBuyWindow(uid);
+
+              if (window.innerWidth <= 768 && closeDrawer) {
+                setTimeout(() => {
+                  closeDrawer();
+                }, 100);
+              }
+            }}
           >
             Buy
           </button>
         </Tooltip>
 
-        {/* SELL */}
         <Tooltip
           title="Sell (S)"
           placement="top"
@@ -153,32 +157,46 @@ const WatchlistAction = ({ uid }) => {
         >
           <button
             className="sell"
-            onClick={() => openSellWindow(uid)}
+            onClick={(e) => {
+              e.stopPropagation();
+
+              openSellWindow(uid);
+
+              if (window.innerWidth <= 768 && closeDrawer) {
+                setTimeout(() => {
+                  closeDrawer();
+                }, 100);
+              }
+            }}
           >
             Sell
           </button>
         </Tooltip>
 
-        {/* ANALYTICS */}
         <Tooltip
-          title="Analytics (A)"
+          title="Analytics"
           placement="top"
           arrow
           TransitionComponent={Grow}
         >
-          <button className="action">
+          <button
+            className="action"
+            onClick={(e) => e.stopPropagation()}
+          >
             <BarChartOutlined className="icon" />
           </button>
         </Tooltip>
 
-        {/* MORE */}
         <Tooltip
           title="More"
           placement="top"
           arrow
           TransitionComponent={Grow}
         >
-          <button className="action">
+          <button
+            className="action"
+            onClick={(e) => e.stopPropagation()}
+          >
             <MoreHoriz className="icon" />
           </button>
         </Tooltip>
