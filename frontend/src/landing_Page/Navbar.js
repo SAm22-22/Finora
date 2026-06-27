@@ -1,16 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
-  // token check
-  // const token = localStorage.getItem("token");
+  const location = useLocation();
 
-  // // logout function
-  // const handleLogout = () => {
-  //   localStorage.removeItem("token");
-  //   window.location.href = "http://localhost:3000/";
-  // };
+  // Route change hote hi mobile menu close ho jayega
+  useEffect(() => {
+    const navbar = document.getElementById("navbarSupportedContent");
+
+    if (navbar && navbar.classList.contains("show")) {
+      navbar.classList.remove("show");
+    }
+  }, [location]);
 
   return (
     <nav
@@ -27,18 +29,24 @@ function Navbar() {
           />
         </Link>
 
-        {/* Toggle */}
+        {/* Toggle Button */}
         <button
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
         {/* Menu */}
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          className="collapse navbar-collapse"
+          id="navbarSupportedContent"
+        >
           <ul className="navbar-nav ms-auto gap-3 mb-2 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link" to="/about">
